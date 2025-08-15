@@ -2,29 +2,34 @@
 using namespace std;
 
 int main() {
-    
     int t;
     cin >> t;
     while (t--) {
-        int n, k;
-        cin >> n >> k;
-        vector<int> a(n+2);
-        a[0] = 0;
-        a[n+1] = k;
-        for (int i = 1; i <= n; i++) cin >> a[i];
+        int n ;
+        cin >> n ;
+        vector<char> a(n);
 
-        int maxi = 0;
-        for(int i = 0 ; i<=n ; i++){
-            maxi = max(maxi , a[i+1]-a[i]);
+        int count_action = 0;
+        bool cont_empty = false;
+
+        for (int i = 0; i < n; i++) cin >> a[i];
+
+        for (int i = 0; i < n; i++) {
+            if (i + 2 < n && a[i] == '.' && a[i+1] == '.' && a[i+2] == '.') {
+                cont_empty = true;
+                break;
+            }
+            if (a[i] == '.') {
+                count_action++;
+            }
         }
-        int back = k-a[n];
-        if(maxi - back >= back){
-            cout<<maxi;
-        }else{
-            cout<<(2 * back);
+
+        if (cont_empty) {
+            cout << 2;
+        } else {
+            cout << count_action;
         }
         cout << endl;
     }
-    
     return 0;
 }
